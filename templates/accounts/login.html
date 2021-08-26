@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} meetMyDoctor | Login {% endblock %}
+
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'home/style.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'email/style.css' %}" type="text/css" />
+    <script src="{% static 'email/style.js' %}" type="text/javascript" defer></script>
+    <style>
+        .btn-google {
+            font-size: 18px;
+            line-height: 1.2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            margin: 13px 0 10px;
+            width: 98%;
+            height: 50px;
+            border-radius: 5px;
+            border: 1px #21252929 solid;
+            box-shadow: 1px 1px 0px 0px #21252929;
+            transition: all 0.4s;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+ <!-- Login-Signup container starts -->
+    <header style="padding: 3px; background-color: #005EB1; color: white; width: 100%;">
+    <nav >
+        <div class="nav-wrapper navbar-style">
+            <a href="{% url 'home:index' %}"><img class="brand-logo" src="{% static 'icon/meetmyDoctor.png' %}"></a>
+            <ul id="nav-mobile" class="righthide-on-med-and-down" style="display: inline-flex;">
+                <li><a href="{% url 'accounts:login_page' %}" class="button" id="rcorners">Login/SignUp</a></li>
+            </ul>
+        </div>
+    </nav>
+</header> 
+<div class="container right-panel-active" id="container" style="height: 200px;" >
+
+    <div class="form-container sign-up-container"  >
+        <form method="post">
+            {% csrf_token %}
+            <h4>Create Account</h4>
+            <input type="name" name="name" placeholder="Name" required />
+                    <input type="email" name="email" id="email" placeholder="Email" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" required />
+                    <input type="phone" name="phone" placeholder="Mobile No." required />
+            <input type="password" name="password1" id="password1" placeholder="Password" required />
+            <input type="password" name="password2" placeholder="Confirm Password" required />
+            <!-- <span class="form-error"> {{signup_error}} </span> -->
+            <br />
+            <button type='submit' name='submit' value='sign_up'>Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form action=" " method="post">
+            {% csrf_token %}
+            <h1>Sign in</h1>
+            <a class="btn-google" href="*" role="button" style="text-transform: none;">
+                <img width="23px" style="margin-bottom: 3px; margin-right: 8px;" alt="Google"
+                    src="{% static 'icon/google.png' %}" />
+                Login with Google
+            </a>
+            <p style="margin: 5px 0;">---OR---</p>
+            <input type="email" name="email" placeholder="Email" 
+                pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                required />
+
+            <!-- Div to hold the elements in single line -->
+            <div id="password_div">
+
+                <input type="password" name="password1"  placeholder="Password" required />
+
+                <!-- Eye icon to toggle -->
+                <img data-toggle="tooltip" title="Show Password" id="togglePassword" src="{% static 'icon/eye.svg' %}" alt="">
+
+            </div>
+
+
+            <a href="*">Forgot your password?</a>
+            <button type='submit' name='submit' value='login'>Sign In</button>
+        </form>
+    </div>
+
+            {% for message in messages %}
+                    <p id="messages">{{message}}</p>
+                {% endfor %}
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
